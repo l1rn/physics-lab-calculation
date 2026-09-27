@@ -28,29 +28,33 @@ class ProcessDataClass:
             np.sqrt(pow(df['delta_t'], 2) + pow(TETA_TIME, 2))
         )
         alpha_rad = np.radians(df['alpha'])
+        delta_alpha_rad = np.radians(TETA_ALPHA)
         df['mu'] = (
             np.tan(alpha_rad)
             - (2 * S_CONST) / (G_CONST * df['time_avg']**2 * np.cos(alpha_rad))
         )
 
-        delta_alpha_rad = np.radians(TETA_ALPHA)
-
         term1 = (
-            (1 - (2 * S_CONST * np.sin(alpha_rad)) / (G_CONST * df['time_avg']**2))
-            * (delta_alpha_rad / np.cos(alpha_rad))
-        )**2
+                (1 - (2 * S_CONST * np.sin(alpha_rad)) 
+                 / (G_CONST * df['time_avg']**2))
+                * (delta_alpha_rad / np.cos(alpha_rad))
+                )**2
 
         term2 = (
-            (4 * S_CONST * df['delta_t_avg']) / (G_CONST * df['time_avg']**3)
-        )**2
+                (4 * S_CONST * df['delta_t_avg']) 
+                / (G_CONST * df['time_avg']**3)
+                )**2
 
         term3 = (
-            (2 * TETA_S) / (G_CONST * df['time_avg']**2)
-        )**2
+                (2 * TETA_S)
+                / (G_CONST * df['time_avg']**2)
+                )**2
+
 
         df['mu_err'] = (1 / np.cos(alpha_rad)) * np.sqrt(term1 + term2 + term3)
+        print(df['mu_err'])
 
-        self.df = df.copy()
+        self.df = df
     def print_preprocessed(self):
         print(self.df)
 

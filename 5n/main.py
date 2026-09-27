@@ -2,7 +2,7 @@ import sys
 from process_data import ProcessDataClass
 
 def main():
-    c = ProcessDataClass(csv_path='duraliminiy.csv')
+    c = ProcessDataClass(csv_path='wood.csv')
     c.print_raw()
     c.preprocess()
     c.print_preprocessed()
